@@ -1,0 +1,32 @@
+{
+  "name": "ripple-image-affect",
+  "version": "1.0.0",
+  "description": "## Purpose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wenqingyu/ripple-image-affect.git"
+  },
+  "author": "Wenqing Yu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wenqingyu/ripple-image-affect/issues"
+  },
+  "homepage": "https://github.com/wenqingyu/ripple-image-affect#readme",
+  "dependencies": {
+    "array-2d": "^1.0.2",
+    "array-2d-js": "^1.0.1",
+    "canvas": "^2.2.0",
+    "fs": "0.0.1-security",
+    "get-pixels": "^3.3.2",
+    "image-output": "^2.4.0",
+    "is-browser": "^2.1.0",
+    "jimp": "^0.6.0",
+    "jpeg-js": "^0.3.4",
+    "save-pixels": "^2.3.4",
+    "zeros": "^1.0.0"
+  }
+}
