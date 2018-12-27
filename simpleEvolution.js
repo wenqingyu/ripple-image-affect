@@ -17,21 +17,20 @@ let colorMap = {
 let width = 100
 let height = 100
 
-let imgDir = 'image/'
-let version = 'a'
+let imgDir = 'image/simpleRoundEvolution/'
+let version = 'b'
 
 let round = 1
-let roundCeiling = 10
+let roundCeiling = 1000
 
 let current2DArray = new Array2d(width, height, 0)
 
-let next2DArray
+let next2DArray = new Array2d(width, height, 0)
 
 var main = async () => {
+  await frontpage()
   await initiate()
 
-  // initiate
-  next2DArray = current2DArray
   // output
   await imgPrint(current2DArray, imgDir + version + '_0.jpg')
 
@@ -44,6 +43,7 @@ var main = async () => {
 
     // Step 3: update current2DArray
     current2DArray = next2DArray
+    next2DArray = new Array2d(width, height, 0)
 
     console.log('Round ' + round + ' print end!')
 
@@ -52,12 +52,21 @@ var main = async () => {
   }
 }
 
+/**
+ * White page gap
+ */
+var frontpage = async () => {
+  console.log('Print frontpage!')
+  for (let i = 0; i < 5; i++) {
+    await imgPrint(current2DArray, imgDir + 'a' + version + '_0' + i + '.jpg')
+  }
+}
+
 var initiate = async () => {
-//   console.log(current2DArray)
+  //   console.log(current2DArray)
   current2DArray.set(0, 0, 1)
   console.log('initiated!')
 }
-
 /**
  * round addition algorithm
  * input: current2DArray
@@ -68,7 +77,7 @@ var roundAdditionEvolution = async () => {
     // console.log(w)
     for (let h = 0; h < current2DArray.n; h++) {
       let newColor = await roundAddition(current2DArray, w, h) % Object.keys(colorMap).length
-    //   console.log('newColor: ', newColor)
+      // console.log('newColor: ', newColor)
       next2DArray.set(w, h, newColor)
         //   console.log(w, h, chuck)
     }
@@ -77,26 +86,31 @@ var roundAdditionEvolution = async () => {
 
 var roundAddition = async (twoDArray, posX, posY) => {
   let output = twoDArray.get(posX, posY)
+  // console.log('output1(', posX, posY, ')', output) // TEST
   // up
   if (posY + 1 < height) {
     output += twoDArray.get(posX, posY + 1)
+    // console.log('up', twoDArray.get(posX, posY + 1)) // TEST
   }
 
   // down
   if (posY - 1 >= 0) {
     output += twoDArray.get(posX, posY - 1)
+    // console.log('down', twoDArray.get(posX, posY - 1)) // TEST
   }
 
   // left
   if (posX - 1 >= 0) {
     output += twoDArray.get(posX - 1, posY)
+    // console.log('left', twoDArray.get(posX - 1, posY)) // TEST
   }
 
   // right
   if (posX + 1 < width) {
     output += twoDArray.get(posX + 1, posY)
+    // console.log('left', twoDArray.get(posX + 1, posY)) // TEST
   }
-
+  // console.log('output2', output) // TEST
   return output
 }
 
@@ -112,6 +126,7 @@ var imgPrint = async (twoDArray, imgDestination) => {
     // console.log(w)
     for (let h = 0; h < twoDArray.n; h++) {
       let chuckColorNum = twoDArray.get(w, h)
+      // console.log(chuckColorNum) // TEST
       let chuck = colorMap[chuckColorNum]
     //   console.log(w, h, chuck)
       output = output.concat(chuck)
